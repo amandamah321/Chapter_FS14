@@ -22,13 +22,83 @@ namespace Chapter_FS14.Controllers
 
         [HttpGet]
 
-        public IActionResult listar()
+        public IActionResult Listar()
         {
             try  
             {
                 return Ok(_livroRepository.Listar());  
             }
             catch (Exception e) 
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+
+        [HttpGet("{id}")]
+        public IActionResult BuscarPorId(int id)
+        {
+            try
+            { 
+                Livro livrobuscado = _livroRepository.BuscarPorId(id);
+            if (livrobuscado ==  null)
+            { 
+                return NotFound();
+            }
+                return Ok(livrobuscado);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult Cadastrar(Livro l)
+        {
+            try
+            {
+                _livroRepository.Cadastrar(l);
+                
+                return StatusCode(201);
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Deletar(int id)
+        {
+            try
+            {
+                _livroRepository.Deletar(id);
+
+                return Ok("Livro removido com sucesso");
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+
+
+        [HttpPut("{id}")]
+        public IActionResult Alterar(int id, Livro l)
+        {
+            try
+            {
+                _livroRepository.Alterar(id, l );
+
+                return StatusCode(204);
+
+            }
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
