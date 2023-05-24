@@ -1,4 +1,5 @@
 using Chapter_FS14.Contexts;
+using Chapter_FS14.Interfaces;
 using Chapter_FS14.Repository;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,12 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<Sqlcontext, Sqlcontext>();
 builder.Services.AddTransient<LivroRepository, LivroRepository>();
-
-
-
-
-
-
+builder.Services.AddTransient<IUsuarios, UsuarioRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
